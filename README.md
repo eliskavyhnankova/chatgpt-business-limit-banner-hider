@@ -1,39 +1,47 @@
-# Lokální skrytí banneru limitu v ChatGPT
+# Skrytí banneru limitu v ChatGPT Business
 
-Local Manifest V3 Chrome extension that visually hides one specific Czech ChatGPT Business limit banner. It does not change usage limits, credits, billing, or server behavior.
+Malé rozšíření pro Chrome, které v prohlížeči skryje jeden konkrétní český banner o dosažení limitu člena pracovního prostoru. Hodí se například při natáčení obrazovky. Nemění limity, kredity, fakturaci ani chování ChatGPT na serveru.
 
-Tato Manifest V3 extension skryje pouze český banner, který současně obsahuje:
+## Jak funguje
+
+Rozšíření hledá prvek `<aside role="status">`, který současně obsahuje:
 
 - nadpis „Člen pracovního prostoru dosáhl limitu“;
 - text „Zapni automatické dobíjení, aby se kredity automaticky doplňovaly a nedocházelo k dalším přerušením.“;
 - tlačítko „Zapnout automatické dobíjení“.
 
-Při přípravě byl banner v aktuálním rozhraní ChatGPT ověřen jako `<aside role="status">`. Extension vyžaduje právě tento prvek, přesné tři texty, jediné interaktivní tlačítko a kompaktní široký blok u horního okraje stránky. Skrývá celé `aside`, aby po něm nezůstalo prázdné místo. Nepoužívá CSS třídy ChatGPT. Když se text nebo struktura banneru změní, extension jej raději neskryje.
+Před skrytím ověřuje také velikost, umístění a strukturu prvku. Skrývá celé upozornění, aby po něm nezůstalo prázdné místo. Nepoužívá proměnlivé CSS třídy ChatGPT. Sleduje změny stránky, takže zachytí i banner vložený po načtení. Pokud ChatGPT změní text nebo strukturu upozornění, rozšíření jej raději ponechá viditelné.
 
-## Instalace v Chrome na macOS
+## Instalace v Chrome
 
-1. Stáhněte repozitář a ponechte jeho složku na trvalém místě. Soubor `manifest.json` musí být přímo v této složce.
+1. Stáhněte repozitář, rozbalte jej a ponechte složku na trvalém místě. Soubor `manifest.json` musí být přímo v této složce.
 2. V Chrome otevřete `chrome://extensions`.
-3. Zapněte **Developer mode / Režim pro vývojáře**.
-4. Klikněte na **Load unpacked / Načíst rozbalené** a vyberte složku repozitáře obsahující `manifest.json`.
-5. Znovu načtěte otevřenou kartu `chatgpt.com`. Extension je ve výchozím stavu zapnutá.
-6. Volitelně připněte její ikonu přes nabídku rozšíření vpravo od adresního řádku.
+3. Zapněte **Režim pro vývojáře**.
+4. Klikněte na **Načíst rozbalené** a vyberte složku obsahující `manifest.json`.
+5. Znovu načtěte otevřenou kartu `chatgpt.com`. Skrývání je ve výchozím stavu zapnuté.
+6. Pokud chcete mít přepínač po ruce, připněte ikonu rozšíření na panel Chrome.
 
 ## Zapnutí a vypnutí
 
-Klikněte na ikonu extension a přepněte **Skrývat banner limitu**. Změna se projeví v již otevřených kartách bez reloadu. Vypnutí vrátí všechny prvky, které extension skryla. Nastavení zůstane uloženo po restartu Chrome.
+Klikněte na ikonu rozšíření a přepněte **Skrývat banner limitu**. Změna se projeví v otevřených kartách bez opětovného načtení stránky. Vypnutí znovu zobrazí prvky, které rozšíření skrylo. Nastavení zůstane uloženo i po restartu Chrome.
 
-Pro úplné odebrání otevřete `chrome://extensions` a u extension klikněte na **Remove / Odebrat**; případně ji tam jen vypněte.
+Rozšíření odstraníte na `chrome://extensions` tlačítkem **Odebrat**. Na téže stránce jej můžete také pouze vypnout.
+
+## Soukromí a rozsah
+
+Rozšíření běží pouze na `https://chatgpt.com/*`. Neposílá data po síti, neshromažďuje analytiku a nekliká na tlačítko automatického dobíjení. Čte jen strukturu stránky a vlastní nastavení uložené v `chrome.storage.local`. Nejde o oficiální rozšíření společnosti OpenAI.
 
 ## Soubory
 
-- `manifest.json` – Manifest V3, oprávnění pouze pro lokální úložiště, content script jen na `https://chatgpt.com/*`.
-- `content.js` – přesná detekce banneru, sledování dynamických změn DOM a reakce na přepínač.
-- `content.css` – skrytí pouze prvků označených detekčním skriptem.
-- `popup.html`, `popup.css`, `popup.js` – jednoduchý přepínač.
+- `manifest.json` – nastavení rozšíření ve formátu Manifest V3.
+- `content.js` – detekce banneru, sledování změn stránky a reakce na přepínač.
+- `content.css` – skrytí pouze prvku označeného detekčním skriptem.
+- `popup.html`, `popup.css`, `popup.js` – okno s přepínačem.
 
-Extension nic neposílá po síti, nekliká na tlačítko, nezasahuje do limitů ani fakturace. Čte jen DOM dané stránky a své nastavení v `chrome.storage.local`.
+## Licence
+
+Kód je dostupný pod licencí MIT. Můžete jej používat, upravovat a šířit, včetně komerčního použití. Při dalším šíření ponechte oznámení o autorství a licenční text. Úplné podmínky jsou v souboru `LICENSE`, jehož standardní znění je anglicky.
 
 ## Když banner zůstane viditelný
 
-Nejprve ověřte, že je zapnutý přepínač a že jste po instalaci znovu načetli kartu. Pokud ChatGPT změnil text, jazyk nebo strukturu banneru, je potřeba aktualizovat konstanty `TITLE`, `MESSAGE` a `ACTION` nebo podmínky v `isSafeBannerRoot` v souboru `content.js`. Po úpravě klikněte na **Reload / Znovu načíst** u extension na `chrome://extensions` a načtěte kartu ChatGPT znovu.
+Ověřte, že je zapnutý přepínač a že jste po instalaci znovu načetli kartu ChatGPT. Rozšíření rozpoznává pouze výše uvedené české znění. Pokud ChatGPT změnil text nebo strukturu banneru, upravte hodnoty `TITLE`, `MESSAGE` a `ACTION` nebo podmínky v `isSafeBannerRoot` v souboru `content.js`. Potom rozšíření na `chrome://extensions` znovu načtěte a obnovte kartu ChatGPT.

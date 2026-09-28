@@ -6,7 +6,7 @@
   const CONTROL_SELECTOR = 'button, [role="button"], a[href]';
   const BANNER_SELECTOR = 'aside[role="status"]';
 
-  // Match all three pieces of the specific Czech prompt. No generated classes.
+  // Vyžaduj všechny tři části českého upozornění. Nepoužívej proměnlivé CSS třídy.
   const TITLE = "Člen pracovního prostoru dosáhl limitu";
   const MESSAGE =
     "Zapni automatické dobíjení, aby se kredity automaticky doplňovaly a nedocházelo k dalším přerušením.";
@@ -34,8 +34,8 @@
     const text = normalize(root.textContent);
     if (text.length > 400 || root.querySelectorAll("*").length > 30) return false;
 
-    // The current ChatGPT banner is an aside with status semantics.
-    // Never hide a region that contains an editor or another page section.
+    // Současný banner je prvek aside s rolí status.
+    // Neschovávej oblast obsahující editor nebo jinou část stránky.
     if (
       !root.matches(BANNER_SELECTOR) ||
       root.querySelector(
@@ -45,7 +45,7 @@
       return false;
     }
 
-    // The observed banner is a compact, wide block at the top of ChatGPT.
+    // Ověřený banner je široký a nízký blok u horního okraje stránky.
     const box = root.getBoundingClientRect();
     return (
       box.width >= Math.min(320, window.innerWidth * 0.5) &&
@@ -65,7 +65,7 @@
     scanQueued = false;
     if (!enabled) return;
 
-    // If ChatGPT reuses a marked node for different content, reveal it again.
+    // Pokud ChatGPT použije označený prvek pro jiný obsah, znovu jej zobraz.
     for (const root of hidden) {
       if (!root.isConnected || !hasAllText(root)) {
         root.removeAttribute(MARKER);
