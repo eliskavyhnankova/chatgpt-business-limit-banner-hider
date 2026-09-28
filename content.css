@@ -1,0 +1,4 @@
+/* Affects only nodes explicitly marked by this extension's content script. */
+[data-local-credit-banner-hider="1"] {
+  display: none !important;
+}

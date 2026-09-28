@@ -1,0 +1,35 @@
+body {
+  box-sizing: border-box;
+  width: 280px;
+  margin: 0;
+  padding: 16px;
+  color: #202123;
+  font: 14px/1.4 system-ui, sans-serif;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toggle input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+}
+
+p {
+  margin: 12px 0 0;
+  color: #5b6066;
+}
+
+#status:empty {
+  display: none;
+}
+
+#status {
+  color: #a22;
+}

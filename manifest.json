@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT: skrýt banner limitu",
+  "version": "1.0.0",
+  "description": "Lokálně skryje pouze konkrétní český banner o limitu člena workspace.",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "Skrývání banneru limitu",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "css": ["content.css"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
