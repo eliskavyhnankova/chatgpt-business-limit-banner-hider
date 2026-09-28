@@ -1,6 +1,6 @@
 # Skrytí banneru limitu v ChatGPT Business
 
-Malé rozšíření pro Chrome, které v prohlížeči skryje jeden konkrétní český banner o dosažení limitu člena pracovního prostoru. Hodí se například při natáčení obrazovky. Nemění limity, kredity, fakturaci ani chování ChatGPT na serveru.
+Malé rozšíření pro Chrome, které v prohlížeči skryje banner o dosažení limitu člena pracovního prostoru. Ten v současnosti nelze skrýt a ani v nastavení upravit, aby se nezobrazoval. 
 
 ## Jak funguje
 
@@ -10,7 +10,7 @@ Rozšíření hledá prvek `<aside role="status">`, který současně obsahuje:
 - text „Zapni automatické dobíjení, aby se kredity automaticky doplňovaly a nedocházelo k dalším přerušením.“;
 - tlačítko „Zapnout automatické dobíjení“.
 
-Před skrytím ověřuje také velikost, umístění a strukturu prvku. Skrývá celé upozornění, aby po něm nezůstalo prázdné místo. Nepoužívá proměnlivé CSS třídy ChatGPT. Sleduje změny stránky, takže zachytí i banner vložený po načtení. Pokud ChatGPT změní text nebo strukturu upozornění, rozšíření jej raději ponechá viditelné.
+Funguje na české texty, ale v případě potřeby si ho určitě zvládnete upravit pro jiné jazykové verze. Před skrytím ověřuje také velikost, umístění a strukturu prvku. Skrývá celé upozornění, aby po něm nezůstalo prázdné místo. Nepoužívá proměnlivé CSS třídy ChatGPT. Sleduje změny stránky, takže zachytí i banner vložený po načtení. Pokud ChatGPT změní text nebo strukturu upozornění, rozšíření jej raději ponechá viditelné.
 
 ## Instalace v Chrome
 
